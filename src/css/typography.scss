@@ -1,0 +1,40 @@
+// Primary Font
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 200;
+  src: url('../fonts/kanit/Kanit-ExtraLight.woff2') format('woff2'),
+       url('../fonts/kanit/Kanit-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 300;
+  src: url('../fonts/kanit/Kanit-Light.woff2') format('woff2'),
+       url('../fonts/kanit/Kanit-Light.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 400;
+  src: url('../fonts/kanit/Kanit-Regular.woff2') format('woff2'),
+       url('../fonts/kanit/Kanit-Regular.ttf')  format('truetype');
+}
+
+// Font with Icons
+@font-face {
+  font-family: 'FIcons';
+  src: url('../fonts/icons/icon.woff') format('woff'),
+  url('../fonts/icons/icon.ttf')  format('truetype');
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}

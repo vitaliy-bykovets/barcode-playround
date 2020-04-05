@@ -1,0 +1,30 @@
+@import "variables";
+@import "tools";
+
+.project {
+  margin-bottom: rem(35px);
+  position: relative;
+
+  h4 {
+    margin: 0 0 rem(5px);
+    font-size: rem(18px);
+    font-weight: 400;
+  }
+
+  time {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    margin-left: -20px;
+    color: $secondary-color;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  &:hover {
+    time {
+      opacity: 1;
+    }
+  }
+}

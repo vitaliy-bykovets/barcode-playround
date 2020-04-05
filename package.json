@@ -1,44 +1,45 @@
 {
-  "name": "untitled",
-  "version": "0.1.0",
-  "private": true,
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio for Vitaliy Bykovets",
+  "main": "src/entry.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "start": "webpack-dev-server --config webpack.config.js --open",
+    "build": "webpack --config webpack.config.js --mode production"
+  },
+  "keywords": [
+    "portfolio",
+    "Vutaliy",
+    "Bykovets"
+  ],
+  "author": "Vitaliy Bykovets",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^6.0.0",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-pngquant": "^8.0.0",
+    "imagemin-svgo": "^7.1.0",
+    "imagemin-webp": "^5.1.0",
+    "img-loader": "^3.0.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^8.0.2",
+    "url-loader": "^4.0.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "core-js": "^3.6.4",
-    "quagga": "^0.12.1",
-    "vue": "^2.6.11",
-    "vue-router": "^3.1.6"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "baguettebox.js": "^1.11.1",
+    "modern-normalize": "^0.6.0",
+    "quagga": "^0.12.1"
+  }
 }

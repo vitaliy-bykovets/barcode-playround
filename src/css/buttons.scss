@@ -1,0 +1,21 @@
+button {
+  outline: none;
+  border: none;
+  min-width: 120px;
+
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+}
+
+.btn {
+  background-color: $accent-color;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: rem(14px);
+  font-weight: 300;
+  min-height: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
