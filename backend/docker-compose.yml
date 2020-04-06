@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  adminer:
+    image: adminer:latest
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - 8080:8080
+    links:
+      - mysql
+    logging:
+      driver: none
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: sldb
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

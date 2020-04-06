@@ -34,6 +34,9 @@ window.addEventListener('load', function () {
         codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'video').then((result) => {
           console.log(result);
           document.getElementById('result').textContent = result.text;
+          fetch(`api/barcodes/${result.text}`).then((response) => {
+            console.log('line: 38 ---->', response);
+          })
         }).catch((err) => {
           console.error(err);
           document.getElementById('result').textContent = err;

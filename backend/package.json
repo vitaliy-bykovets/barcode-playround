@@ -1,0 +1,30 @@
+{
+  "name": "slikar-backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node_modules/.bin/nodemon -e js,pug server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "knex": "node_modules/.bin/knex"
+  },
+  "author": "Vitaliy Bykovets",
+  "license": "ISC",
+  "dependencies": {
+    "bookshelf": "^0.15.1",
+    "bookshelf-modelbase": "^2.10.4",
+    "dotenv": "^8.1.0",
+    "knex": "^0.19.2",
+    "koa": "^2.8.1",
+    "koa-body": "^4.1.1",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.17.1",
+    "puppeteer": "^2.1.1",
+    "validatorjs": "^3.15.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
