@@ -9,7 +9,8 @@ const config = {
       recovery_timeout: 600
     },
     pageSize: 25,
-    defaultSortColumn: 'name'
+    defaultSortColumn: 'name',
+    apiBarcodeKey: process.env.BARCODE_API_KEY,
   },
   database: { // settings for knex
     client: 'mysql',

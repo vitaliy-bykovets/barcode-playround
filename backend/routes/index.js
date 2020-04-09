@@ -19,8 +19,8 @@ router.use("/api", api.routes());
 module.exports = app => {
 
   // Middleware
-  app.use(pagerMiddleware);
+  // app.use(pagerMiddleware);
 
   app.use(router.routes());
-  app.use(router.allowedMethods());
+  // app.use(router.allowedMethods());
 };

@@ -11,24 +11,36 @@
 
 <body>
   <main>
-      <div class="button-container">
-          <a class="btn" id="startButton">Start</a>
-          <a class="btn" id="resetButton">Reset</a>
-      </div>
+      <section class="barcode-decoder">
+          <div class="button-container">
+              <a class="btn btn-circle" id="startButton">Scan Code</a>
+              <p class="text-mute">OR</p>
+              <p id="openWardrobe" class="link">Check your Wardrobe</p>
+          </div>
 
-      <div class="camera-container" id="camera-container">
-          <video id="video" width="600" height="400" style="border: 1px solid gray"></video>
-          <div class="placeholder"></div>
-      </div>
+          <div class="camera-container" id="camera-container">
+              <video id="video" width="600" height="400" style="border: 1px solid gray"></video>
+<!--              <div class="placeholder"></div>-->
+          </div>
 
-      <div id="sourceSelectPanel" style="display:none">
-          <label for="sourceSelect">Change video source:</label>
-          <select id="sourceSelect" style="max-width:400px">
-          </select>
-      </div>
+          <div id="sourceSelectPanel" style="display:none">
+              <label for="sourceSelect">Change video source:</label>
+              <select id="sourceSelect" style="max-width:400px">
+              </select>
+          </div>
 
-      <label>Result:</label>
-      <pre><code id="result"></code></pre>
+          <div class="loader"></div>
+      </section>
+
+      <section class="result">
+
+      </section>
+
+      <section class="wardrobe is-hide">
+
+      </section>
+
+
       <script src="https://unpkg.com/@zxing/library@0.16.0/umd/index.min.js"></script>
   </main>
 </body>
