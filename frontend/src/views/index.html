@@ -1,12 +1,14 @@
   
 <!doctype html>
-<html lang="">
+<html lang="en-us">
 
 <head>
-  <meta charset="utf-8">
-  <title>Test Barcode</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Test Barcode - Vitaliy Bykovets</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#839094">
 </head>
 
 <body>
@@ -19,8 +21,8 @@
           </div>
 
           <div class="camera-container" id="camera-container">
+              <button id="back" class="btn btn-circle" type="button">&#8676; Back</button>
               <video id="video" width="600" height="400" style="border: 1px solid gray"></video>
-<!--              <div class="placeholder"></div>-->
           </div>
 
           <div id="sourceSelectPanel" style="display:none">
@@ -29,14 +31,30 @@
               </select>
           </div>
 
+          <div class="message">
+              <p>Unfortunately, we can't find the product with this barcode.</p>
+              <p>Is this <strong><span class="message-barcode"></span></strong> number correct?</p>
+              <p>If NO - try scan again, YES - add new product <a class="link">manually</a></p>
+          </div>
+
           <div class="loader"></div>
       </section>
 
-      <section class="result">
+      <section class="result container">
 
       </section>
 
-      <section class="wardrobe is-hide">
+      <section class="wardrobe container is-hide">
+
+          <div class="dresser">
+
+          </div>
+
+          <div class="empty">
+              <h2>:(</h2>
+              <h3>Oops, you don't have items</h3>
+              <p>To fill wardrobe scan new items</p>
+          </div>
 
       </section>
 

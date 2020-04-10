@@ -53,14 +53,15 @@ a {
 
   &:hover {
     color: #fff;
-    opacity: .5;
+    opacity: .8;
   }
 }
 
 .btn-circle {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
+  background-color: #8dcee2;
 }
 
 .link {
@@ -95,9 +96,10 @@ a {
     .button-container {
       position: fixed;
       bottom: 0;
+      z-index: 5;
 
       .btn {
-        margin-bottom: -20px;
+        margin-bottom: -40px;
       }
 
       .text-mute,
@@ -105,6 +107,17 @@ a {
         display: none;
       }
     }
+  }
+
+  &.is-message {
+    height: 100vh;
+    .message { display: block }
+  }
+
+  .message {
+    text-align: center;
+    display: none;
+    padding: 0 20px;
   }
 }
 
@@ -126,6 +139,18 @@ a {
 .camera-container {
   position: relative;
   display: none;
+  flex-direction: column;
+  align-items: center;
+
+  & > .btn {
+    max-width: 130px;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    margin-left: -65px;
+    z-index: 5;
+  }
+
 }
 
 .placeholder {
@@ -150,7 +175,7 @@ a {
   display: none;
 }
 
-.result {
+.container {
   padding: 0 20px;
   max-width: 640px;
   margin: 30px auto 0;
@@ -159,10 +184,8 @@ a {
 .product {
   display: flex;
   position: relative;
-
-  &:not(:last-child) {
-    margin-bottom: 30px;
-  }
+  font-size: 14px;
+  margin-bottom: 70px;
 
   .image-container {
     height: 100px;
@@ -174,7 +197,7 @@ a {
   }
 
   .name {
-    font-size: 20px;
+    font-size: 18px;
     margin: 0;
   }
 
@@ -214,7 +237,17 @@ a {
   }
 }
 
+.wardrobe {
 
+  &.is-empty .empty {
+    display: block;
+  }
+
+  .empty {
+    display: none;
+    text-align: center;
+  }
+}
 
 
 .loader,

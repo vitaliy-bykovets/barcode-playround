@@ -1,16 +1,28 @@
 let productCashed;
+const barcodeDecoder = document.querySelector('.barcode-decoder');
+const barcodeDecoderMessage = barcodeDecoder.querySelector('.message');
+const cameraBackBtn = barcodeDecoder.querySelector('#back');
+const resultContainer = document.querySelector('.result');
+const wardrobe = document.querySelector('.wardrobe');
+const dresser = wardrobe.querySelector('.dresser');
+const openWardrobeBtn = document.getElementById('openWardrobe');
+
 window.addEventListener('load', function () {
   let selectedDeviceId;
   const codeReader = new ZXing.BrowserBarcodeReader();
-  const barcodeDecoder = document.querySelector('.barcode-decoder');
-  const resultContainer = document.querySelector('.result');
-  const wardrobe = document.querySelector('.wardrobe');
-  const openWardrobeBtn = document.getElementById('openWardrobe');
 
-  openWardrobeBtn.addEventListener('click', (e) => {
+  openWardrobeBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     wardrobe.classList.remove('is-hide');
     barcodeDecoder.classList.add('is-result');
+
+    await getAndInsertProducts();
+  });
+
+  cameraBackBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    barcodeDecoder.classList.remove('is-camera', 'is-result', 'is-error', 'is-message');
+    codeReader.reset();
   });
 
   codeReader.getVideoInputDevices()
@@ -36,24 +48,36 @@ window.addEventListener('load', function () {
 
       document.getElementById('startButton').addEventListener('click', () => {
 
-        barcodeDecoder.classList.remove('is-result');
+        barcodeDecoder.classList.remove('is-result', 'is-error', 'is-message');
         barcodeDecoder.classList.add('is-camera');
         resultContainer.innerHTML = '';
+        dresser.innerHTML = '';
 
         codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'video').then( async (result) => {
           barcodeDecoder.classList.remove('is-camera');
           barcodeDecoder.classList.add('is-processing');
 
-          const response = await fetch(`api/barcode/${result.text}`).then((response) => response.json());
-          productCashed = response.data;
-          insertIntoDOM(response.data, resultContainer);
+          const code = result.text;
+
+          const response = await fetch(`api/barcode/${code}`).then((response) => response.json());
+
+          if (!response.data.products) {
+            barcodeDecoderMessage.querySelector('.message-code').textContent = code;
+            barcodeDecoder.classList.add('is-message');
+          } else {
+            productCashed = response.data.products[0];
+            insertIntoDOM(response.data, resultContainer);
+          }
+
           codeReader.reset();
 
           barcodeDecoder.classList.remove('is-processing');
           barcodeDecoder.classList.add('is-result');
         }).catch((err) => {
-          console.error(err);
-          document.getElementById('result').textContent = err;
+          codeReader.reset();
+          barcodeDecoder.classList.remove('is-result', 'is-processing');
+          barcodeDecoder.classList.add('is-error');
+          console.error('********* - 80', err)
         });
       });
     })
@@ -62,9 +86,10 @@ window.addEventListener('load', function () {
     })
 });
 
-function insertIntoDOM(data, container) {
+function insertIntoDOM(data, container, isCreate = true) {
 
-  const products = data.products;
+  let products = (data && data.products) || data;
+  products = products.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   products.forEach((p) => {
     const productDiv = document.createElement('div');
@@ -73,7 +98,7 @@ function insertIntoDOM(data, container) {
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('image-container');
     const image = document.createElement('img');
-    image.src = p.images[0];
+    image.src = p.imgUrl || p.images[0];
     imageContainer.appendChild(image);
 
     const productInfo = document.createElement('div');
@@ -142,48 +167,75 @@ function insertIntoDOM(data, container) {
 
     productDiv.appendChild(imageContainer);
     productDiv.appendChild(productInfo);
-    productDiv.appendChild(getProductBtns());
+    productDiv.appendChild(getProductBtns(p.id, isCreate));
 
     container.appendChild(productDiv);
   });
 }
 
-function getProductBtns() {
+function getProductBtns(id = null, isCreate) {
   const container = document.createElement('div');
   container.className = 'product-btns';
 
-  const buttonAdd = document.createElement('button');
-  buttonAdd.type = 'button';
-  buttonAdd.className = 'btn';
-  buttonAdd.textContent = '+ Add to my Wardrobe';
-  buttonAdd.onclick = addProduct;
+  if (isCreate) {
+    const buttonAdd = document.createElement('button');
+    buttonAdd.type = 'button';
+    buttonAdd.className = 'btn';
+    buttonAdd.textContent = '+ Add to my Wardrobe';
+    buttonAdd.onclick = addProduct;
+    container.appendChild(buttonAdd);
+  } else {
+    const buttonDelete = document.createElement('button');
+    buttonDelete.type = 'button';
+    buttonDelete.className = 'btn';
+    buttonDelete.textContent = 'Remove';
+    buttonDelete.onclick = (e) => {
+      const id = e.currentTarget.getAttribute('data-id');
+      deleteProduct(id)
+        .then(async () => await getAndInsertProducts())
+        .catch(() => {});
+      
+    };
+    if (id) {
+      buttonDelete.setAttribute('data-id', id);
+    }
 
-  const buttonDelete = document.createElement('button');
-  buttonDelete.type = 'button';
-  buttonDelete.className = 'btn';
-  buttonDelete.textContent = 'Remove';
-  buttonDelete.onclick = deleteProduct;
-
-  container.appendChild(buttonAdd);
-  container.appendChild(buttonDelete);
+    container.appendChild(buttonDelete);
+  }
 
   return container;
 }
 
+async function getAllProducts() {
+  return await fetch(`api/product`).then((response) => response.json());
+}
+
 async function addProduct() {
   if (productCashed) {
-    await fetch(`api/barcode`, {
+    await fetch(`api/product`, {
       method: 'POST',
       body: JSON.stringify(productCashed)
     });
-
+    resultContainer.innerHTML = '';
+    wardrobe.classList.remove('is-hide');
+    await getAndInsertProducts();
   }
 }
 
 async function deleteProduct(id) {
-  console.log('********* - 184', id)
-  // await fetch(`api/barcode/${id}`, {
-  //   method: 'DELETE',
-  //   body: JSON.stringify(productCashed)
-  // });
+  await fetch(`api/product/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+async function getAndInsertProducts() {
+  dresser.innerHTML = '';
+  const products = await getAllProducts();
+  if (!products.data) {
+    wardrobe.classList.add('is-empty');
+  } else {
+    wardrobe.classList.remove('is-empty');
+  }
+
+  insertIntoDOM(products.data, dresser, false);
 }
