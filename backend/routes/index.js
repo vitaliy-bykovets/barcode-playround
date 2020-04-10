@@ -4,23 +4,17 @@ const api = new Router();
 
 // Routers
 const barcodeRouter = require('./barcode.router');
+const productRouter = require('./product.router');
 
-// Middleware
-const {
-  pagerMiddleware,
-} = require('./../middleware');
 
 // Set Routers
 api.use(barcodeRouter);
+api.use(productRouter);
 
 // Global prefix
 router.use("/api", api.routes());
 
 module.exports = app => {
-
-  // Middleware
-  // app.use(pagerMiddleware);
-
   app.use(router.routes());
-  // app.use(router.allowedMethods());
+  app.use(router.allowedMethods());
 };

@@ -1,5 +1,5 @@
-const Barcode = require('./Barcode');
+const Product = require('./Product');
 
 module.exports = {
-  Barcode,
+  Product,
 };
