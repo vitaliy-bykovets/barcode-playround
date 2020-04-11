@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/barcode-playround
+    working_directory: ~/barcode-playround/frontend
     docker:
       - image: circleci/node:8.9.1
     steps:
