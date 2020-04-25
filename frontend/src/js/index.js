@@ -27,24 +27,6 @@ window.addEventListener('load', function () {
 
   codeReader.getVideoInputDevices()
     .then((videoInputDevices) => {
-      const sourceSelect = document.getElementById('sourceSelect');
-
-      selectedDeviceId = videoInputDevices[0].deviceId;
-      if (videoInputDevices.length > 1) {
-        videoInputDevices.forEach((element) => {
-          const sourceOption = document.createElement('option');
-          sourceOption.text = element.label;
-          sourceOption.value = element.deviceId;
-          sourceSelect.appendChild(sourceOption);
-        });
-
-        sourceSelect.onchange = () => {
-          selectedDeviceId = sourceSelect.value;
-        };
-
-        const sourceSelectPanel = document.getElementById('sourceSelectPanel');
-        sourceSelectPanel.style.display = 'block';
-      }
 
       document.getElementById('startButton').addEventListener('click', () => {
 
@@ -53,7 +35,7 @@ window.addEventListener('load', function () {
         resultContainer.innerHTML = '';
         dresser.innerHTML = '';
 
-        codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'video').then( async (result) => {
+        codeReader.decodeOnceFromVideoDevice(undefined, 'video').then( async (result) => {
           barcodeDecoder.classList.remove('is-camera');
           barcodeDecoder.classList.add('is-processing');
 
@@ -98,7 +80,7 @@ function insertIntoDOM(data, container, isCreate = true) {
     const imageContainer = document.createElement('div');
     imageContainer.classList.add('image-container');
     const image = document.createElement('img');
-    image.src = p.imgUrl || p.images[0];
+    image.src = p.imgUrl || p.images && p.images[0];
     imageContainer.appendChild(image);
 
     const productInfo = document.createElement('div');

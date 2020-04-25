@@ -5,11 +5,11 @@ exports.up = (knex) => {
     table.increments('id').primary();
     table.string('barcode_number')
       .notNullable();
-    table.string('product_name');
+    table.text('product_name');
     table.string('brand');
     table.string('category');
     table.string('attributes');
-    table.string('description');
+    table.text('description');
     table.string('manufacturer');
     table.string('imgUrl');
     table.string('color');

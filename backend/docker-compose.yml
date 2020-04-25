@@ -22,4 +22,4 @@ services:
     ports:
       - 3307:3306
     restart: always
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-buffer-pool-chunk-size=20M
