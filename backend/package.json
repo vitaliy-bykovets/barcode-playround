@@ -14,7 +14,7 @@
     "bookshelf": "^0.15.1",
     "bookshelf-modelbase": "^2.10.4",
     "dotenv": "^8.1.0",
-    "knex": "^0.19.2",
+    "knex": "^0.19.5",
     "koa": "^2.8.1",
     "koa-body": "^4.1.1",
     "koa-json": "^2.0.2",
